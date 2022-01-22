@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace KredekTests_Template
 {
@@ -22,6 +21,8 @@ namespace KredekTests_Template
         {
             services.AddDbContext<VehicleDbContext>(options => options.UseInMemoryDatabase("Vehicles"));
             services.AddTransient<IVehicleRepository,VehicleRepository>();
+
+            services.AddMvc(options => options.EnableEndpointRouting = false);
 
             services.AddOpenApiDocument(c =>
             {
@@ -45,6 +46,7 @@ namespace KredekTests_Template
             }
 
             app.UseHttpsRedirection();
+
             app.UseMvc();
 
             app.UseOpenApi();
