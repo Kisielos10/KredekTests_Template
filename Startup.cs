@@ -22,6 +22,13 @@ namespace KredekTests_Template
         {
             services.AddDbContext<VehicleDbContext>(options => options.UseInMemoryDatabase("Vehicles"));
             services.AddTransient<IVehicleRepository,VehicleRepository>();
+
+            services.AddOpenApiDocument(c =>
+            {
+                c.GenerateXmlObjects = true;
+                c.Title = "Kredek Testable Web API";
+            });
+
             services.AddMvc();
         }
 
@@ -39,6 +46,9 @@ namespace KredekTests_Template
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
         }
     }
 }
