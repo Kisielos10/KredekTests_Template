@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace KredekTests_Template
 {
     public class Vehicle
     {
-        public string manufacturer;
-        public string model;
-        public int yearOfProduction;
-        public int worth;
+        [Key]
+        public int Id { get; set; }
+        [Required]
+        public string manufacturer { get; set; }
+        public string model { get; set; }
+        public int? yearOfProduction { get; set; }
+        public int? worth { get; set; }
 
         public Vehicle()
         {

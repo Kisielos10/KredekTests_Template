@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace KredekTests_Template.Controllers
 {
@@ -10,66 +9,57 @@ namespace KredekTests_Template.Controllers
     [ApiController]
     public class VehicleController : ControllerBase
     {
-        private Vehicle[] _vehicle = new []
+        private readonly IVehicleRepository _vehicleRepository;
+
+        public VehicleController(IVehicleRepository vehicleRepository)
         {
-            new Vehicle()
-            {
-                manufacturer = "VW",
-                model = "Golf",
-                worth = 5000,
-                yearOfProduction = 2000
-            },
-            new Vehicle()
-            {
-                manufacturer = "Renault",
-                model = "Megane",
-                worth = 7000,
-                yearOfProduction = 2003
-            },
-            new Vehicle()
-            {
-                manufacturer = "Honda",
-                model = "Civic",
-                worth = 4000,
-                yearOfProduction = 1999
-            }
-        };
+            _vehicleRepository = vehicleRepository;
+        }
         [HttpGet]
         public ActionResult<List<Vehicle>> Get()
         {
-            return Ok(_vehicle);
+            return Ok(_vehicleRepository.Get());
         }
-
-        [HttpGet("{year}")]
-        public ActionResult<Vehicle> GetByYear(int year)
+        
+        [HttpGet("{id}")]
+        public ActionResult<Vehicle> GetById(int id)
         {
-            return Ok(_vehicle.FirstOrDefault(vehicle => vehicle.yearOfProduction == year));
+            return Ok(_vehicleRepository.GetById(id));
         }
-
+        
         [HttpPost]
-        public void Post([FromBody] string manufacturer,[FromBody] string model,[FromBody] int worth,[FromBody] int yearOfProduction)
+        public ActionResult<Vehicle> Post([FromBody] Vehicle vehicle)
         {
-            _vehicle =_vehicle.Concat(new[] {new Vehicle(manufacturer,model,yearOfProduction,worth)}).ToArray();
+            var result = _vehicleRepository.Add(vehicle);
+
+            return Created(new Uri($"{Request.Path}/{result}",UriKind.Relative) ,result);
+        }
+        
+        [HttpPut("{id}")]
+        public ActionResult<Vehicle> Put([FromRoute] int id, [FromBody] Vehicle vehicle)
+        {
+            if (_vehicleRepository.GetById(id) == null)
+            {
+                return NotFound();
+            }
+
+            var result = _vehicleRepository.Update(vehicle, id);
+
+            return CreatedAtAction("Put",new {id = result.Id},result);
         }
 
-        [HttpPut("{year}")]
-        public ActionResult<Vehicle> Put(int year, [FromBody] int worth)
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
         {
-            var result = _vehicle.FirstOrDefault(vehicle => vehicle.yearOfProduction == year);
+            if (_vehicleRepository.GetById(id) == null)
+            {
+                return NotFound();
+            }
 
-            result.worth = worth;
-
-            return Ok(result);
-        }
-
-        [HttpDelete("{year}")]
-        public ActionResult Delete(int year)
-        {
-            var result = _vehicle.FirstOrDefault(vehicle => vehicle.yearOfProduction == year);
-
-            _vehicle = _vehicle.Where(vehicle => vehicle.yearOfProduction != year).ToArray();
+            _vehicleRepository.Delete(id);
 
             return NoContent();
         }
+        
     }
 }
