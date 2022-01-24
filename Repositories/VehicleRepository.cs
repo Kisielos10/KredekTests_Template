@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace KredekTests_Template
 {
@@ -41,10 +40,10 @@ namespace KredekTests_Template
 
             if (result == null) return null;
 
-            result.manufacturer = vehicle.manufacturer ?? result.manufacturer;
-            result.model = vehicle.model ?? result.model;
-            result.yearOfProduction = vehicle.yearOfProduction ?? result.yearOfProduction;
-            result.worth = vehicle.worth ?? result.worth;
+            result.Manufacturer = vehicle.Manufacturer ?? result.Manufacturer;
+            result.Model = vehicle.Model ?? result.Model;
+            result.YearOfProduction = vehicle.YearOfProduction ?? result.YearOfProduction;
+            result.Worth = vehicle.Worth;
 
             _context.SaveChanges();
 
