@@ -9,7 +9,7 @@ namespace KredekTests_Template
 {
     public class DataAccess
     {
-        private static string personTextFile = "PersonText.txt";
+        private static string _personTextFile = "PersonText.txt";
 
         public static void AddNewPerson(PersonModel person)
         {
@@ -17,9 +17,9 @@ namespace KredekTests_Template
 
             AddPersonToPeopleList(people, person);
 
-            List<string> lines = ConvertModelsToCSV(people);
+            List<string> lines = ConvertModelsToCsv(people);
 
-            File.WriteAllLines(personTextFile, lines);
+            File.WriteAllLines(_personTextFile, lines);
         }
 
         public static void AddPersonToPeopleList(List<PersonModel> people, PersonModel person)
@@ -37,7 +37,7 @@ namespace KredekTests_Template
             people.Add(person);
         }
 
-        public static List<string> ConvertModelsToCSV(List<PersonModel> people)
+        public static List<string> ConvertModelsToCsv(List<PersonModel> people)
         {
             List<string> output = new List<string>();
 
@@ -52,7 +52,7 @@ namespace KredekTests_Template
         public static List<PersonModel> GetAllPeople()
         {
             List<PersonModel> output = new List<PersonModel>();
-            string[] content = File.ReadAllLines(personTextFile);
+            string[] content = File.ReadAllLines(_personTextFile);
 
             foreach (string line in content)
             {

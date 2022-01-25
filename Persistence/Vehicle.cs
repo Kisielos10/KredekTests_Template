@@ -7,10 +7,11 @@ namespace KredekTests_Template
         [Key]
         public int Id { get; set; }
         [Required]
-        public string manufacturer { get; set; }
-        public string model { get; set; }
-        public int? yearOfProduction { get; set; }
-        public int? worth { get; set; }
+        public string Manufacturer { get; set; }
+        public string Model { get; set; }
+        public int? YearOfProduction { get; set; }
+        public decimal Worth { get; set; }
+        public int Power { get; set; }
 
         public Vehicle()
         {
@@ -18,10 +19,10 @@ namespace KredekTests_Template
 
         public Vehicle(string manufacturer, string model, int yearOfProduction, int worth)
         {
-            this.manufacturer = manufacturer;
-            this.model = model;
-            this.yearOfProduction = yearOfProduction;
-            this.worth = worth;
+            this.Manufacturer = manufacturer;
+            this.Model = model;
+            this.YearOfProduction = yearOfProduction;
+            this.Worth = worth;
         }
     }
 }

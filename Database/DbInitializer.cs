@@ -18,24 +18,24 @@ namespace KredekTests_Template
             {
                 new Vehicle()
                 {
-                    manufacturer = "VW",
-                    model = "Golf",
-                    worth = 5000,
-                    yearOfProduction = 2000
+                    Manufacturer = "VW",
+                    Model = "Golf",
+                    Worth = 5000,
+                    YearOfProduction = 2000
                 },
                 new Vehicle()
                 {
-                    manufacturer = "Renault",
-                    model = "Megane",
-                    worth = 7000,
-                    yearOfProduction = 2003
+                    Manufacturer = "Renault",
+                    Model = "Megane",
+                    Worth = 7000,
+                    YearOfProduction = 2003
                 },
                 new Vehicle()
                 {
-                    manufacturer = "Honda",
-                    model = "Civic",
-                    worth = 4000,
-                    yearOfProduction = 1999
+                    Manufacturer = "Honda",
+                    Model = "Civic",
+                    Worth = 4000,
+                    YearOfProduction = 1999
                 }
 
             };
